@@ -1,0 +1,19 @@
+{
+    "name": "feyst/purge-email",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mark van der Feijst",
+            "email": "mark@feyst.nl"
+        }
+    ],
+    "require": {
+        "ext-sodium": "*",
+        "symfony/console": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/App/"
+        }
+    }
+}
