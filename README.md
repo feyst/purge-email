@@ -10,6 +10,9 @@ Example configuration:
       "username": "user@domain.com",
       "password": "Welcom123",
       "before": "2 weeks",
+      "port": 993,
+      "ssl": true,
+      "ignore-certificate": false,
       "boxes": [
         "INBOX",
         "Trash"
@@ -29,6 +32,7 @@ composer install
 ## Usage
 ```shell
 php src/application.php encrypt ~/source.json ./env.json.enc mysecret
+php src/application.php encrypt --opslimit=1 --memlimit=64000000 ~/source.json ./env.json.enc mysecret
 php src/application.php remove-old-mail mysecret
 ```
 

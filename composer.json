@@ -9,6 +9,7 @@
     ],
     "require": {
         "ext-sodium": "*",
+        "ext-imap": "*",
         "symfony/console": "^5.3",
         "paragonie/sodium_compat": "^1.16"
     },

@@ -7,7 +7,12 @@ final class SymmetricCrypto
 {
     private const SEPARATOR = ';';
 
-    final public function encrypt(string $message, string $password): string
+    final public function encrypt(
+        string $message,
+        string $password,
+        int $opslimit = SODIUM_CRYPTO_PWHASH_OPSLIMIT_SENSITIVE,
+        int $memlimit = SODIUM_CRYPTO_PWHASH_MEMLIMIT_SENSITIVE
+    ): string
     {
         $config = [
             'version' => 1,
@@ -15,8 +20,8 @@ final class SymmetricCrypto
                 'method' => 'sodium_crypto_pwhash',
                 'length' => 32,
                 'salt' => bin2hex(random_bytes(SODIUM_CRYPTO_PWHASH_SALTBYTES)),
-                'opslimit' => SODIUM_CRYPTO_PWHASH_OPSLIMIT_SENSITIVE,
-                'memlimit' => SODIUM_CRYPTO_PWHASH_MEMLIMIT_SENSITIVE,
+                'opslimit' => $opslimit,
+                'memlimit' => $memlimit,
                 'algo' => SODIUM_CRYPTO_PWHASH_ALG_DEFAULT,
             ],
             'encryption' => [
