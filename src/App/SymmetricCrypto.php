@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use http\Exception\InvalidArgumentException;
+
 final class SymmetricCrypto
 {
     private const SEPARATOR = ';';
@@ -53,15 +55,21 @@ final class SymmetricCrypto
         $config = json_decode(base64_decode(substr($ciphertext, 0, $base64End)), true);
         $key = $this->key($config['key'], $password);
 
-        return sodium_crypto_aead_chacha20poly1305_decrypt(
+        $decrypted = sodium_crypto_aead_chacha20poly1305_decrypt(
             substr($ciphertext, $base64End + strlen(self::SEPARATOR)),
             $this->additionalData($config),
             hex2bin($config['encryption']['nonce']),
             $key,
         );
+
+        if (false === $decrypted) {
+            throw new InvalidArgumentException('Invalid password!');
+        }
+
+        return $decrypted;
     }
 
-    final private function key(array $keyConfig, $password): string
+    private function key(array $keyConfig, $password): string
     {
         return sodium_crypto_pwhash(
             $keyConfig['length'],
@@ -73,7 +81,7 @@ final class SymmetricCrypto
         );
     }
 
-    final private function additionalData(array $config): string
+    private function additionalData(array $config): string
     {
         return json_encode(['config' => $config]);
     }

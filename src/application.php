@@ -9,6 +9,7 @@ use Symfony\Component\Console\Application;
 $application = new Application();
 
 $application->add(new App\Command\Encrypt);
+$application->add(new App\Command\Decrypt);
 $application->add(new App\Command\RemoveOldEmail);
 
 

@@ -32,6 +32,7 @@ composer install
 ## Usage
 ```shell
 php src/application.php encrypt ~/source.json ./env.json.enc mysecret
+php src/application.php decrypt ./env.json.enc mysecret
 php src/application.php encrypt --opslimit=1 --memlimit=64000000 ~/source.json ./env.json.enc mysecret
 php src/application.php remove-old-mail mysecret
 ```
